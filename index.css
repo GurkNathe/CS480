@@ -1,28 +1,10 @@
 body {
+	width: 100vw;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 	background-color: black;
-}
-
-.number {
-	height: 56.8px;
-	background-color: rgba(255, 255, 255, 0.8);
-	border: 1px solid rgba(0, 0, 0, 0.8);
-	font-size: 20px;
-	text-align: center;
-	cursor: pointer;
-	transition-duration: 0.2s;
-}
-
-.blank {
-	height: 56.8px;
-	background-color: rgba(255, 255, 255, 0.8);
-	border: 1px solid rgba(0, 0, 0, 0.8);
-	font-size: 20px;
-	text-align: center;
-}
-
-.number:hover {
-	background-color: rgba(255, 255, 255, 1);
-	border: 1px solid rgba(0, 0, 0, 1);
 }
 
 .calculator {
@@ -33,7 +15,32 @@ body {
 	box-shadow: 0 0 5px #ccc;
 	padding: 20px;
 	font-family: "Open Sans", sans-serif;
-	margin: 20px;
+}
+
+.calculator:before {
+	content: "";
+	position: absolute;
+	width: 15px;
+	height: calc(520px + 40px);
+	background-color: #727171;
+	box-shadow: 0 0 5px #ccc;
+	z-index: -1;
+	translate: -35px -10px;
+	border-radius: 5px 0px 0px 5px;
+	transform: rotate(0deg) skewY(-50deg);
+}
+
+.calculator:after {
+	content: "";
+	position: absolute;
+	width: 20px;
+	height: calc(520px + 40px);
+	background-color: #727171;
+	box-shadow: 0 0 5px #ccc;
+	z-index: -1;
+	border-radius: 0px 5px 5px 5px;
+	translate: -280px 220px;
+	transform: rotate(90deg) skewY(40deg);
 }
 
 .text-area {
@@ -43,11 +50,39 @@ body {
 	text-align: right;
 }
 
+.text-area:hover {
+	transition: all 0.3s ease;
+	box-shadow: 0 0 5px #000;
+}
+
 .input-grid {
-	display: grid;
+	display: inline-grid;
 	grid-template-columns: auto auto auto auto;
 	background-color: #484a4d;
 	padding: 10px;
 	width: 500px;
 	border-radius: 5px;
+}
+
+.number {
+	height: 56.8px;
+	background-color: rgba(255, 255, 255, 0.8);
+	border: 1px solid rgba(0, 0, 0, 0.8);
+	font-size: 20px;
+	text-align: center;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.number:hover {
+	background-color: rgba(255, 255, 255, 1);
+	border: 1px solid rgba(0, 0, 0, 1);
+}
+
+.blank {
+	height: 56.8px;
+	background-color: rgba(255, 255, 255, 0.8);
+	border: 1px solid rgba(0, 0, 0, 0.8);
+	font-size: 20px;
+	text-align: center;
 }
