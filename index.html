@@ -10,41 +10,101 @@
 </head>
 <body>
     <div class="calculator">
-        <input class="text-area"></input>
+        <input autofocus id="equation" class="text-area"></input>
         <div class="input-grid">
-            <button onclick="" class="number">sin</button>
-            <button class="number">cos</button>
-            <button class="number">tan</button>
-            <button class="number">Clear</button>
-            <button class="number">csc</button>
-            <button class="number">sec</button>
-            <button class="number">cot</button>
-            <button class="number">Delete</button>
-            <button class="number">arcsin</button>
-            <button class="number">arccos</button>
-            <button class="number">arctan</button>
-            <button class="number">+</button>
-            <button class="number">arcctg</button>
-            <button class="number">log</button>
-            <button class="number">ln</button>
-            <button class="number">-</button>
-            <button class="number">1</button>
-            <button class="number">2</button>
-            <button class="number">3</button>
-            <button class="number">⨯</button>
-            <button class="number">4</button>
-            <button class="number">5</button>
-            <button class="number">6</button>
-            <button class="number">÷</button>
-            <button class="number">7</button>
-            <button class="number">8</button>
-            <button class="number">9</button>
-            <button class="number">xⁿ</button>
-            <button class="number">.</button>
-            <button class="number">0</button>
+            <button onclick="mathFuncs(this)" class="number">sin</button>
+            <button onclick="mathFuncs(this)" class="number">cos</button>
+            <button onclick="mathFuncs(this)" class="number">tan</button>
+            <button onclick="onClear()" class="number">Clear</button>
+            <button onclick="mathFuncs(this)" class="number">csc</button>
+            <button onclick="mathFuncs(this)" class="number">sec</button>
+            <button onclick="mathFuncs(this)" class="number">cot</button>
+            <button onclick="onDelete()" class="number">Delete</button>
+            <button onclick="mathFuncs(this)" class="number">arcsin</button>
+            <button onclick="mathFuncs(this)" class="number">arccos</button>
+            <button onclick="mathFuncs(this)" class="number">arctan</button>
+            <button onclick="exponent()" class="number">xⁿ</button>
+            <button onclick="mathFuncs(this)" class="number">arcctg</button>
+            <button onclick="mathFuncs(this)" class="number">log</button>
+            <button onclick="mathFuncs(this)" class="number">ln</button>
+            <button onclick="onNumber(this)" class="number">+</button>
+            <button onclick="onNumber(this)" class="number">(</button>
+            <button onclick="onNumber(this)" class="number">)</button>
+            <button onclick="onNumber(this)" class="number">e</button>
+            <button onclick="onNumber(this)" class="number">-</button>
+            <button onclick="onNumber(this)" class="number">7</button>
+            <button onclick="onNumber(this)" class="number">8</button>
+            <button onclick="onNumber(this)" class="number">9</button>
+            <button onclick="mult()" class="number">⨯</button>
+            <button onclick="onNumber(this)" class="number">4</button>
+            <button onclick="onNumber(this)" class="number">5</button>
+            <button onclick="onNumber(this)" class="number">6</button>
+            <button onclick="divide()" class="number">÷</button>
+            <button onclick="onNumber(this)" class="number">1</button>
+            <button onclick="onNumber(this)" class="number">2</button>
+            <button onclick="onNumber(this)" class="number">3</button>
+            <button onclick="onNumber(this)" class="number">.</button>
             <button class="blank"></button>
-            <button class="number">=</button>
+            <button onclick="onNumber(this)" class="number">0</button>
+            <button class="blank"></button>
+            <button onclick="onEnter()" class="number">=</button>
         </div>
     </div>
+    <script>
+        var equation = document.getElementById("equation");
+
+        equation.addEventListener("keyup", (event) => {
+            if(event.keyCode == 27) {
+                equation.blur();
+            }
+        });
+
+        equation.addEventListener("keydown", (event) => {
+            if(event.keyCode == 13) {
+                onEnter();
+            }
+        });
+
+        onEnter = () => {
+            equation.value = eval(equation.value);
+        }
+
+        // might use a switch statement instead
+        onClear = () => {
+            document.getElementById("equation").value = "";
+            document.getElementById("equation").focus();
+        }
+
+        onDelete = () => {
+            document.getElementById("equation").value = document.getElementById("equation").value.slice(0, -1);
+            document.getElementById("equation").focus();
+        }
+        
+        onNumber = (number) => {
+            document.getElementById("equation").value += number.textContent;
+            document.getElementById("equation").focus();
+        }
+
+        mult = () => {
+            document.getElementById("equation").value += "*";
+            document.getElementById("equation").focus();
+        }
+
+        divide = () => {
+            document.getElementById("equation").value += "/";
+            document.getElementById("equation").focus();
+        }
+
+        exponent = () => {
+            document.getElementById("equation").value += "**";
+            document.getElementById("equation").focus();
+        }
+
+        mathFuncs = (func) => {
+            document.getElementById("equation").value += func.textContent + "(";
+            document.getElementById("equation").focus();
+        }
+
+    </script>
 </body>
 </html>
