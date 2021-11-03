@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
-    <script src="index.js"></script>
+    <script type="text/javascript" src="Calculator.js"></script>
     <title>Calculator</title>
 </head>
 <body>
@@ -57,20 +57,23 @@
 
         var equation = document.getElementById("equation");
 
+        // listening for ESC key in text box
         equation.addEventListener("keyup", (event) => {
             if(event.keyCode == 27) {
                 equation.blur();
             }
         });
 
+        // listening for Enter key in text box
         equation.addEventListener("keydown", (event) => {
             if(event.keyCode == 13) {
                 onEnter();
             }
         });
 
+        // function handling equals button
         onEnter = () => {
-            equation.value = eval(equation.value);
+            equation.value = expressionEval(equation.value);
         }
 
         // handling for button interaction other than equals
