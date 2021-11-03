@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Calculator" company="CWU" webLink="http://" view-date="2021-10-22" view-index="0" gantt-divider-location="299" resource-divider-location="300" version="2.8.11" locale="en_US">
+<?xml version="1.0" encoding="UTF-8"?><project name="Calculator" company="CWU" webLink="http://" view-date="2021-10-19" view-index="0" gantt-divider-location="299" resource-divider-location="300" version="2.8.11" locale="en_US">
     <description/>
     <view zooming-state="default:2" id="gantt-chart">
         <field id="tpd3" name="Name" width="166" order="0"/>
         <field id="tpd4" name="Begin date" width="65" order="1"/>
         <field id="tpd5" name="End date" width="64" order="2"/>
+        <option id="color.recent"><![CDATA[#ffcc66 #ffff00 #ff3333 #3333ff #0033ff]]></option>
     </view>
     <view id="resource-table">
         <field id="0" name="Name" width="210" order="0"/>
@@ -33,10 +34,24 @@
             <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
             <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
         </taskproperties>
-        <task id="0" name="Create GUI" meeting="false" start="2021-10-25" duration="3" complete="72" expand="true">
-            <depend id="1" type="2" difference="0" hardness="Strong"/>
+        <task id="0" name="Create GUI" color="#ffff00" meeting="false" start="2021-10-25" duration="5" complete="100" thirdDate="2021-10-25" thirdDate-constraint="0" expand="true">
+            <depend id="2" type="2" difference="0" hardness="Strong"/>
         </task>
-        <task id="1" name="Immplement Math Algorithm" meeting="false" start="2021-10-28" duration="1" complete="0" expand="true"/>
+        <task id="2" name="Switch to Javascript" color="#ffcc66" meeting="false" start="2021-11-01" duration="1" complete="100" thirdDate="2021-10-18" thirdDate-constraint="0" expand="true">
+            <depend id="7" type="2" difference="0" hardness="Strong"/>
+            <depend id="9" type="2" difference="0" hardness="Strong"/>
+            <depend id="10" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="10" name="Create GUI" color="#ff3333" meeting="false" start="2021-11-02" duration="1" complete="100" thirdDate="2021-10-19" thirdDate-constraint="0" expand="true">
+            <notes><![CDATA[Make GUI using HTML and CSS.]]></notes>
+            <depend id="20" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="18" name="README Docs" color="#3333ff" meeting="false" start="2021-11-02" duration="1" complete="100" thirdDate="2021-10-19" thirdDate-constraint="0" expand="true">
+            <depend id="20" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="7" name="Mathematic expression evaluation" color="#ffcc66" meeting="false" start="2021-11-02" duration="2" complete="25" thirdDate="2021-10-19" thirdDate-constraint="0" expand="true"/>
+        <task id="9" name="Error Handling" color="#ffcc66" meeting="false" start="2021-11-02" duration="2" complete="0" thirdDate="2021-10-19" thirdDate-constraint="0" expand="true"/>
+        <task id="20" name="Version Control Documentation" color="#3333ff" meeting="false" start="2021-11-03" duration="1" complete="0" thirdDate="2021-10-19" thirdDate-constraint="0" expand="true"/>
     </tasks>
     <resources/>
     <allocations/>

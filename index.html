@@ -12,45 +12,49 @@
     <div class="calculator">
         <input autofocus id="equation" class="text-area"></input>
         <div class="input-grid">
-            <button onclick="mathFuncs(this)" class="number">sin</button>
-            <button onclick="mathFuncs(this)" class="number">cos</button>
-            <button onclick="mathFuncs(this)" class="number">tan</button>
-            <button onclick="onClear()" class="number">Clear</button>
-            <button onclick="mathFuncs(this)" class="number">csc</button>
-            <button onclick="mathFuncs(this)" class="number">sec</button>
-            <button onclick="mathFuncs(this)" class="number">cot</button>
-            <button onclick="onDelete()" class="number">Delete</button>
-            <button onclick="mathFuncs(this)" class="number">arcsin</button>
-            <button onclick="mathFuncs(this)" class="number">arccos</button>
-            <button onclick="mathFuncs(this)" class="number">arctan</button>
-            <button onclick="exponent()" class="number">xⁿ</button>
-            <button onclick="mathFuncs(this)" class="number">arcctg</button>
-            <button onclick="mathFuncs(this)" class="number">log</button>
-            <button onclick="mathFuncs(this)" class="number">ln</button>
-            <button onclick="onNumber(this)" class="number">+</button>
-            <button onclick="onNumber(this)" class="number">(</button>
-            <button onclick="onNumber(this)" class="number">)</button>
-            <button onclick="onNumber(this)" class="number">e</button>
-            <button onclick="onNumber(this)" class="number">-</button>
-            <button onclick="onNumber(this)" class="number">7</button>
-            <button onclick="onNumber(this)" class="number">8</button>
-            <button onclick="onNumber(this)" class="number">9</button>
-            <button onclick="mult()" class="number">⨯</button>
-            <button onclick="onNumber(this)" class="number">4</button>
-            <button onclick="onNumber(this)" class="number">5</button>
-            <button onclick="onNumber(this)" class="number">6</button>
-            <button onclick="divide()" class="number">÷</button>
-            <button onclick="onNumber(this)" class="number">1</button>
-            <button onclick="onNumber(this)" class="number">2</button>
-            <button onclick="onNumber(this)" class="number">3</button>
-            <button onclick="onNumber(this)" class="number">.</button>
+            <button onclick="onClick(this, 'function')" class="number">sin</button>
+            <button onclick="onClick(this, 'function')" class="number">cos</button>
+            <button onclick="onClick(this, 'function')" class="number">tan</button>
+            <button onclick="onClick(this, 'clear')" class="number">Clear</button>
+            <button onclick="onClick(this, 'function')" class="number">csc</button>
+            <button onclick="onClick(this, 'function')" class="number">sec</button>
+            <button onclick="onClick(this, 'function')" class="number">cot</button>
+            <button onclick="onClick(this, 'delete')" class="number">Delete</button>
+            <button onclick="onClick(this, 'function')" class="number">arcsin</button>
+            <button onclick="onClick(this, 'function')" class="number">arccos</button>
+            <button onclick="onClick(this, 'function')" class="number">arctan</button>
+            <button onclick="onClick(this, 'exponent')" class="number">xⁿ</button>
+            <button onclick="onClick(this, 'function')" class="number">arcctg</button>
+            <button onclick="onClick(this, 'function')" class="number">log</button>
+            <button onclick="onClick(this, 'function')" class="number">ln</button>
+            <button onclick="onClick(this, 'add')" class="number">+</button>
+            <button onclick="onClick(this, 'add')" class="number">(</button>
+            <button onclick="onClick(this, 'add')" class="number">)</button>
+            <button onclick="onClick(this, 'add')" class="number">e</button>
+            <button onclick="onClick(this, 'add')" class="number">-</button>
+            <button onclick="onClick(this, 'add')" class="number">7</button>
+            <button onclick="onClick(this, 'add')" class="number">8</button>
+            <button onclick="onClick(this, 'add')" class="number">9</button>
+            <button onclick="onClick(this, 'multiply')" class="number">⨯</button>
+            <button onclick="onClick(this, 'add')" class="number">4</button>
+            <button onclick="onClick(this, 'add')" class="number">5</button>
+            <button onclick="onClick(this, 'add')" class="number">6</button>
+            <button onclick="onClick(this, 'divide')" class="number">÷</button>
+            <button onclick="onClick(this, 'add')" class="number">1</button>
+            <button onclick="onClick(this, 'add')" class="number">2</button>
+            <button onclick="onClick(this, 'add')" class="number">3</button>
+            <button onclick="onClick(this, 'add')" class="number">.</button>
             <button class="blank"></button>
-            <button onclick="onNumber(this)" class="number">0</button>
+            <button onclick="onClick(this, 'add')" class="number">0</button>
             <button class="blank"></button>
             <button onclick="onEnter()" class="number">=</button>
         </div>
     </div>
     <script>
+        // TODO: 
+        // 1. Add mathematic expression evaluation function
+        // 2. Add error handling
+
         var equation = document.getElementById("equation");
 
         equation.addEventListener("keyup", (event) => {
@@ -69,39 +73,33 @@
             equation.value = eval(equation.value);
         }
 
-        // might use a switch statement instead
-        onClear = () => {
-            document.getElementById("equation").value = "";
-            document.getElementById("equation").focus();
-        }
-
-        onDelete = () => {
-            document.getElementById("equation").value = document.getElementById("equation").value.slice(0, -1);
-            document.getElementById("equation").focus();
-        }
-        
-        onNumber = (number) => {
-            document.getElementById("equation").value += number.textContent;
-            document.getElementById("equation").focus();
-        }
-
-        mult = () => {
-            document.getElementById("equation").value += "*";
-            document.getElementById("equation").focus();
-        }
-
-        divide = () => {
-            document.getElementById("equation").value += "/";
-            document.getElementById("equation").focus();
-        }
-
-        exponent = () => {
-            document.getElementById("equation").value += "**";
-            document.getElementById("equation").focus();
-        }
-
-        mathFuncs = (func) => {
-            document.getElementById("equation").value += func.textContent + "(";
+        // handling for button interaction other than equals
+        onClick = (input, type) => {
+            switch (type) {
+                case "add":
+                    document.getElementById("equation").value += input.textContent;
+                    break;
+                case "function":
+                    document.getElementById("equation").value += input.textContent + "(";
+                    break;
+                case "multiply":
+                    document.getElementById("equation").value += "*";
+                    break;
+                case "divide":
+                    document.getElementById("equation").value += "/";
+                    break;
+                case "exponent":
+                    document.getElementById("equation").value += "**";
+                    break;
+                case "delete":
+                    document.getElementById("equation").value = document.getElementById("equation").value.slice(0, -1);
+                    break;
+                case "clear":
+                    document.getElementById("equation").value = "";
+                    break;
+                default:
+                    break;
+            }
             document.getElementById("equation").focus();
         }
 
