@@ -1,1 +1,1 @@
-# CS480
+# CS480 - Lab 3: Calculator
