@@ -6,74 +6,158 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
     <script type="text/javascript" src="Calculator.js"></script>
+    
     <title>Calculator</title>
 </head>
 <body>
     <div class="calculator">
-        <input autofocus id="equation" class="text-area"></input>
+        <div id="inputs" class="inputs">
+            <span onclick="hideSpan()" id='error' class='error'><span id="good"></span><span id="red" class='red'></span></span>
+            <input autofocus class="text-area" id="equation"></input>
+        </div>
         <div class="input-grid">
-            <button onclick="onClick(this, 'function')" class="number">sin</button>
-            <button onclick="onClick(this, 'function')" class="number">cos</button>
-            <button onclick="onClick(this, 'function')" class="number">tan</button>
-            <button onclick="onClick(this, 'clear')" class="number">Clear</button>
-            <button onclick="onClick(this, 'function')" class="number">csc</button>
-            <button onclick="onClick(this, 'function')" class="number">sec</button>
-            <button onclick="onClick(this, 'function')" class="number">cot</button>
-            <button onclick="onClick(this, 'delete')" class="number">Delete</button>
-            <button onclick="onClick(this, 'function')" class="number">arcsin</button>
-            <button onclick="onClick(this, 'function')" class="number">arccos</button>
-            <button onclick="onClick(this, 'function')" class="number">arctan</button>
-            <button onclick="onClick(this, 'exponent')" class="number">xⁿ</button>
-            <button onclick="onClick(this, 'function')" class="number">arcctg</button>
-            <button onclick="onClick(this, 'function')" class="number">log</button>
-            <button onclick="onClick(this, 'function')" class="number">ln</button>
-            <button onclick="onClick(this, 'add')" class="number">+</button>
-            <button onclick="onClick(this, 'add')" class="number">(</button>
-            <button onclick="onClick(this, 'add')" class="number">)</button>
-            <button onclick="onClick(this, 'add')" class="number">e</button>
-            <button onclick="onClick(this, 'add')" class="number">-</button>
-            <button onclick="onClick(this, 'add')" class="number">7</button>
-            <button onclick="onClick(this, 'add')" class="number">8</button>
-            <button onclick="onClick(this, 'add')" class="number">9</button>
-            <button onclick="onClick(this, 'multiply')" class="number">⨯</button>
-            <button onclick="onClick(this, 'add')" class="number">4</button>
-            <button onclick="onClick(this, 'add')" class="number">5</button>
-            <button onclick="onClick(this, 'add')" class="number">6</button>
-            <button onclick="onClick(this, 'divide')" class="number">÷</button>
-            <button onclick="onClick(this, 'add')" class="number">1</button>
-            <button onclick="onClick(this, 'add')" class="number">2</button>
-            <button onclick="onClick(this, 'add')" class="number">3</button>
-            <button onclick="onClick(this, 'add')" class="number">.</button>
-            <button class="blank"></button>
-            <button onclick="onClick(this, 'add')" class="number">0</button>
-            <button class="blank"></button>
-            <button onclick="onEnter()" class="number">=</button>
+            <button id="b0" onclick="onClick(this, 'function')" class="number">sin</button>
+            <button id="b1" onclick="onClick(this, 'function')" class="number">cos</button>
+            <button id="b2" onclick="onClick(this, 'function')" class="number">tan</button>
+            <button id="b3" onclick="onClick(this, 'clear')" class="number">Clear</button>
+
+            <button id="b4" onclick="onClick(this, 'function')" class="number">arcsin</button>
+            <button id="b5" onclick="onClick(this, 'function')" class="number">arccos</button>
+            <button id="b6" onclick="onClick(this, 'function')" class="number">arctan</button>
+            <button id="b7" onclick="onClick(this, 'delete')" class="number">Delete</button>
+            
+            <button id="b8" onclick="onClick(this, 'function')" class="number">cot</button>
+            <button id="b9" onclick="onClick(this, 'function')" class="number">arcctg</button>
+            <button id="b10" onclick="onClick(this, 'function')" class="number">√</button>
+            <button id="b11" onclick="onClick(this, 'exponent')" class="number">xⁿ</button>
+            
+            <button id="b12" onclick="onClick(this, 'function')" class="number">log</button>
+            <button id="b13" onclick="onClick(this, 'function')" class="number">ln</button>
+            <button id="b14" class="blank"></button>
+            <button id="b15" onclick="onClick(this, 'add')" class="number">+</button>
+
+
+            <button id="b16" onclick="onClick(this, 'add')" class="number">(</button>
+            <button id="b17" onclick="onClick(this, 'add')" class="number">)</button>
+            <button id="b18" class="blank"></button>
+            <button id="b19" onclick="onClick(this, 'add')" class="number">-</button>
+
+            <button id="b20" onclick="onClick(this, 'add')" class="number">7</button>
+            <button id="b21" onclick="onClick(this, 'add')" class="number">8</button>
+            <button id="b22" onclick="onClick(this, 'add')" class="number">9</button>
+            <button id="b23" onclick="onClick(this, 'multiply')" class="number">⨯</button>
+
+            <button id="b24" onclick="onClick(this, 'add')" class="number">4</button>
+            <button id="b25" onclick="onClick(this, 'add')" class="number">5</button>
+            <button id="b26" onclick="onClick(this, 'add')" class="number">6</button>
+            <button id="b27" onclick="onClick(this, 'divide')" class="number">÷</button>
+
+            <button id="b28" onclick="onClick(this, 'add')" class="number">1</button>
+            <button id="b29" onclick="onClick(this, 'add')" class="number">2</button>
+            <button id="b30" onclick="onClick(this, 'add')" class="number">3</button>
+            <button id="b31" onclick="onClick(this, 'add')" class="number">.</button>
+
+            <button id="b32" class="blank"></button>
+            <button id="b33" onclick="onClick(this, 'add')" class="number">0</button>
+            <button id="b34" class="blank"></button>
+            <button id="b35" onclick="onEnter()" class="number">=</button>
         </div>
     </div>
-    <script>
-        // TODO: 
-        // 1. Add mathematic expression evaluation function
+    <script type="text/javascript">
+        // TODO:
         // 2. Add error handling
 
+        // used for entered history
+        var pastEquations = [];
+        var currIndex = 0;
+        
+        // input commonent
         var equation = document.getElementById("equation");
 
-        // listening for ESC key in text box
-        equation.addEventListener("keyup", (event) => {
-            if(event.keyCode == 27) {
-                equation.blur();
-            }
-        });
+        addListeners = () => {
+            // listening for ESC key in text box
+            equation.addEventListener("keyup", (event) => {
+                if(event.keyCode == 27) {
+                    pastEquations = [];
+                    currIndex = 0;
+                    equation.blur();
+                }
+            });
 
-        // listening for Enter key in text box
-        equation.addEventListener("keydown", (event) => {
-            if(event.keyCode == 13) {
-                onEnter();
-            }
-        });
+            // listening for Enter key in text box
+            equation.addEventListener("keyup", (event) => {
+                if(event.keyCode == 13) {
+                    onEnter();
+                }
+            });
 
+            // function to handle past equations
+            equation.addEventListener("keyup", (event) => {
+                if(event.keyCode == 38) {
+                    // up arrow
+                    if(pastEquations.length > 0) {
+                        if(currIndex > 0) {
+                            currIndex--;
+                            equation.value = pastEquations[currIndex];
+                        }
+                    }
+                }
+                else if(event.keyCode == 40) {
+                    // down arrow
+                    if(pastEquations.length > 0) {
+                        if(currIndex < pastEquations.length - 1) {
+                            currIndex++;
+                            equation.value = pastEquations[currIndex];
+                        } else {
+                            currIndex = pastEquations.length;
+                            equation.value = "";
+                        }
+                    }
+                }
+            });
+        }
+
+        document.getElementById("equation").addEventListener("onfocus", addListeners());
+        
         // function handling equals button
         onEnter = () => {
-            equation.value = expressionEval(equation.value);
+            pastEquations.push(equation.value);
+            currIndex = pastEquations.length;
+            let result = createEvaluation(equation.value);
+            if(result.error !== -1) {
+                document.getElementById("good").innerHTML = equation.value.substr(0, result.error);
+                document.getElementById("red").innerHTML = equation.value.substr(result.error, equation.value.length);
+                equation.value = "";
+                document.getElementById("error").style.visibility = "visible";
+                equation.blur();
+                disableBtn(true);
+            } else {
+                try{
+                    let evalVal = evaluate(result.express.join(""))();
+                    equation.value = evalVal;
+                } catch (error) {
+                    document.getElementById("red").innerHTML = "Invalid syntax: " + equation.value;
+                    equation.value = "";
+                    document.getElementById("error").style.visibility = "visible";
+                    equation.blur();
+                    disableBtn(true);
+                }
+            }
+        }
+
+        // disables buttons from being pressed during errors
+        disableBtn = (state) => {
+            for(let i = 0; i < 36; i++) {
+                document.getElementById("b"+i).disabled = state;
+            }
+        }
+        
+        hideSpan = () => {
+            document.getElementById("error").style.visibility = "hidden";
+            equation.focus();
+            disableBtn(false);
+            currIndex--;
+            equation.value = pastEquations[currIndex];
         }
 
         // handling for button interaction other than equals
@@ -92,12 +176,14 @@
                     document.getElementById("equation").value += "/";
                     break;
                 case "exponent":
-                    document.getElementById("equation").value += "**";
+                    document.getElementById("equation").value += "^";
                     break;
                 case "delete":
                     document.getElementById("equation").value = document.getElementById("equation").value.slice(0, -1);
                     break;
                 case "clear":
+                    pastEquations = [];
+                    currIndex = 0;
                     document.getElementById("equation").value = "";
                     break;
                 default:
@@ -107,5 +193,6 @@
         }
 
     </script>
+    <noscript>JavaScript is disabled, please enable it.</noscript>
 </body>
 </html>
