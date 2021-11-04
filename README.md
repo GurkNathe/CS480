@@ -2,7 +2,7 @@
 
 ### How to run the program:
 
-#####(Assuming you have unzipped the lab files into the same directory as the README.md file)
+##### (Assuming you have unzipped the lab files into the same directory as the README.md file)
 
 - With the HTML file that is in the same folder as this file, open the HTML file in Chrome, Firefox, Edge, or Opera\*.
 - The HTML file will have a text box at the top. Enter the expression you want to calculate in the text box and hit the enter key
