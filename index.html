@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
     <script type="text/javascript" src="Calculator.js"></script>
-    
     <title>Calculator</title>
 </head>
 <body>
@@ -19,27 +18,27 @@
             <button id="b0" onclick="onClick(this, 'function')" class="number">sin</button>
             <button id="b1" onclick="onClick(this, 'function')" class="number">cos</button>
             <button id="b2" onclick="onClick(this, 'function')" class="number">tan</button>
-            <button id="b3" onclick="onClick(this, 'clear')" class="number">Clear</button>
-
+            <button id="b14" onclick="onClick(this, 'clear')" class="number">Clear</button>
+            
             <button id="b4" onclick="onClick(this, 'function')" class="number">arcsin</button>
             <button id="b5" onclick="onClick(this, 'function')" class="number">arccos</button>
             <button id="b6" onclick="onClick(this, 'function')" class="number">arctan</button>
-            <button id="b7" onclick="onClick(this, 'delete')" class="number">Delete</button>
+            <button id="b3" onclick="onClick(this, 'tclear')" class="number">Total Clear</button>
             
             <button id="b8" onclick="onClick(this, 'function')" class="number">cot</button>
             <button id="b9" onclick="onClick(this, 'function')" class="number">arcctg</button>
-            <button id="b10" onclick="onClick(this, 'function')" class="number">√</button>
-            <button id="b11" onclick="onClick(this, 'exponent')" class="number">xⁿ</button>
+            <button id="b18" class="blank"></button>
+            <button id="b7" onclick="onClick(this, 'delete')" class="number">Delete</button>
             
             <button id="b12" onclick="onClick(this, 'function')" class="number">log</button>
             <button id="b13" onclick="onClick(this, 'function')" class="number">ln</button>
-            <button id="b14" class="blank"></button>
+            <button id="b11" onclick="onClick(this, 'exponent')" class="number">xⁿ</button>
             <button id="b15" onclick="onClick(this, 'add')" class="number">+</button>
-
-
+            
+            
             <button id="b16" onclick="onClick(this, 'add')" class="number">(</button>
             <button id="b17" onclick="onClick(this, 'add')" class="number">)</button>
-            <button id="b18" class="blank"></button>
+            <button id="b10" onclick="onClick(this, 'function')" class="number">√</button>
             <button id="b19" onclick="onClick(this, 'add')" class="number">-</button>
 
             <button id="b20" onclick="onClick(this, 'add')" class="number">7</button>
@@ -64,46 +63,32 @@
         </div>
     </div>
     <script type="text/javascript">
-        // TODO:
-        // 2. Add error handling
-
-        // used for entered history
+        // History stack
         var pastEquations = [];
         var currIndex = 0;
         
-        // input commonent
+        // Input element
         var equation = document.getElementById("equation");
 
+        // listeners for inputs
+        // 1. ESC key listener (unfocuses input)
+        // 2. Enter key listener (evaluates input)
+        // 3. Up and Down arrow key listeners (navigates history)
         addListeners = () => {
-            // listening for ESC key in text box
-            equation.addEventListener("keyup", (event) => {
-                if(event.keyCode == 27) {
-                    pastEquations = [];
-                    currIndex = 0;
-                    equation.blur();
-                }
-            });
-
-            // listening for Enter key in text box
-            equation.addEventListener("keyup", (event) => {
-                if(event.keyCode == 13) {
+            // listening for ESC, Enter, Up and Down keys in text box
+            equation.addEventListener("keydown", (event) => {
+                if(event.keyCode == 13) { // ENTER key
                     onEnter();
-                }
-            });
-
-            // function to handle past equations
-            equation.addEventListener("keyup", (event) => {
-                if(event.keyCode == 38) {
-                    // up arrow
+                } else if(event.keyCode == 27) { // ESC key
+                    equation.blur();
+                } else if(event.keyCode == 38) { // UP key
                     if(pastEquations.length > 0) {
                         if(currIndex > 0) {
                             currIndex--;
                             equation.value = pastEquations[currIndex];
                         }
                     }
-                }
-                else if(event.keyCode == 40) {
-                    // down arrow
+                } else if(event.keyCode == 40) { // DOWN key
                     if(pastEquations.length > 0) {
                         if(currIndex < pastEquations.length - 1) {
                             currIndex++;
@@ -119,15 +104,20 @@
 
         document.getElementById("equation").addEventListener("onfocus", addListeners());
         
-        // function handling equals button
+        // Function handling equation submission
         onEnter = () => {
             pastEquations.push(equation.value);
             currIndex = pastEquations.length;
             let result = createEvaluation(equation.value);
-            if(result.error !== -1) {
+            if(result.error !== -1 && result.error !== "No expression entered.") {
                 document.getElementById("good").innerHTML = equation.value.substr(0, result.error);
                 document.getElementById("red").innerHTML = equation.value.substr(result.error, equation.value.length);
                 equation.value = "";
+                document.getElementById("error").style.visibility = "visible";
+                equation.blur();
+                disableBtn(true);
+            } else if(result.error === "No expression entered."){
+                document.getElementById("red").innerHTML = result.error;
                 document.getElementById("error").style.visibility = "visible";
                 equation.blur();
                 disableBtn(true);
@@ -136,7 +126,7 @@
                     let evalVal = evaluate(result.express.join(""))();
                     equation.value = evalVal;
                 } catch (error) {
-                    document.getElementById("red").innerHTML = "Invalid syntax: " + equation.value;
+                    document.getElementById("red").innerHTML = "Invalid syntax!";
                     equation.value = "";
                     document.getElementById("error").style.visibility = "visible";
                     equation.blur();
@@ -145,23 +135,31 @@
             }
         }
 
-        // disables buttons from being pressed during errors
+        // Disables buttons from being pressed during errors
         disableBtn = (state) => {
             for(let i = 0; i < 36; i++) {
                 document.getElementById("b"+i).disabled = state;
             }
         }
         
+        // Hides the eror message
         hideSpan = () => {
             document.getElementById("error").style.visibility = "hidden";
+            setTimeout(() => {
+                document.getElementById("good").innerHTML = "";
+                document.getElementById("red").innerHTML = "";
+            }, 500);
             equation.focus();
             disableBtn(false);
-            currIndex--;
-            equation.value = pastEquations[currIndex];
+            setTimeout(() => {
+                currIndex--;
+                equation.value = pastEquations[currIndex];
+            }, 400);
         }
 
-        // handling for button interaction other than equals
+        // Handling for button interaction other than equals
         onClick = (input, type) => {
+            currIndex = pastEquations.length;
             switch (type) {
                 case "add":
                     document.getElementById("equation").value += input.textContent;
@@ -182,6 +180,9 @@
                     document.getElementById("equation").value = document.getElementById("equation").value.slice(0, -1);
                     break;
                 case "clear":
+                    document.getElementById("equation").value = "";
+                    break;
+                case "tclear":
                     pastEquations = [];
                     currIndex = 0;
                     document.getElementById("equation").value = "";

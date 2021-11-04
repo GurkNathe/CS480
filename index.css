@@ -27,9 +27,8 @@ body {
 	background-color: #727171;
 	box-shadow: 0 0 5px #ccc;
 	z-index: -1;
-	translate: -35px -10px;
 	border-radius: 5px 0px 0px 5px;
-	transform: rotate(0deg) skewY(-50deg);
+	transform: translate(-35px, -10px) rotate(0deg) skewY(-50deg);
 }
 
 .calculator:after {
@@ -41,8 +40,7 @@ body {
 	box-shadow: 0 0 5px #ccc;
 	z-index: -1;
 	border-radius: 0px 5px 5px 5px;
-	translate: -280px 280px;
-	transform: rotate(90deg) skewY(40deg);
+	transform: translate(-280px, 280px) rotate(90deg) skewY(40deg);
 }
 
 .input-grid {

@@ -8,7 +8,7 @@ function acot(x) {
 	return Math.PI / 2 - Math.atan(x);
 }
 
-// possible values besides numbers
+// List of possible tokens (not including numbers)
 let tokens = [
 	{
 		token: "=",
@@ -95,11 +95,13 @@ let tokens = [
 // Creates a string version of the expression and handles errors
 function createEvaluation(expression) {
 	let evalExpress = { express: [], error: -1 };
+	// Checking for empty inputs
 	if (expression.replace(/\s+/g, "") !== "") {
 		let currentToken = "";
 		for (let i = 0; i < expression.length; i++) {
 			currentToken += expression[i];
 
+			// Ignore whitespace
 			if (currentToken === " " || currentToken === "") {
 				continue;
 			}
@@ -118,6 +120,7 @@ function createEvaluation(expression) {
 				}
 			}
 
+			// If invalid token, set starting index of invalid token
 			if (i === expression.length - 1 && currentToken !== "") {
 				evalExpress.error = i - currentToken.length + 1;
 				break;
