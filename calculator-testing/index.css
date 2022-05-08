@@ -1,0 +1,101 @@
+body {
+	background-color: #000000;
+}
+
+.container {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	padding: 10px;
+	background-color: #ffffff;
+}
+
+.options {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: left;
+	margin-bottom: 10px;
+	height: 100%;
+}
+
+.stats {
+	margin-left: 10px;
+	width: 100%;
+}
+
+.cats {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: left;
+	margin-bottom: 10px;
+	height: 100%;
+}
+
+.submit {
+	width: 100%;
+	margin-top: 10px;
+}
+
+.results {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	height: 100%;
+}
+
+.incorrect {
+	width: 50%;
+	height: 100%;
+	padding: 10px;
+	margin-right: 10px;
+	display: block;
+	border: solid #000 1px;
+}
+
+.incorrect-list {
+	padding: 0;
+	overflow: scroll;
+	overflow-x: hidden;
+	height: 85%;
+	width: 100%;
+	border: solid #000 1px;
+}
+
+.correct {
+	width: 50%;
+	height: 100%;
+	padding: 10px;
+	margin-right: 10px;
+	display: block;
+	border: solid #000 1px;
+}
+
+.correct-list {
+	padding: 0;
+	overflow: scroll;
+	overflow-x: hidden;
+	height: 85%;
+	width: 100%;
+	border: solid #000 1px;
+}
+
+table {
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+td,
+th {
+	white-space: wrap;
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 8px;
+}
+
+tr:nth-child(even) {
+	background-color: #dddddd;
+}

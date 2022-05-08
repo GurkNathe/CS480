@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <script type="text/javascript" src="math.js"></script>
+    <script type="text/javascript" src="Calculator.js"></script>
+    <script type="text/javascript" src="Generator.js"></script>
+    <title>Expression Testing</title>
+</head>
+<body>
+    <div class="container">
+        <div class="options">
+            <div>
+                <h1>Expression Testing</h1>
+                <input type="number" id="size" placeholder="Enter a size of expressions"></input>
+                <input type="number" id="cases" placeholder="Number of test cases"></input>
+                <input type="button" onclick="onTest()" value="Submit" class="submit"></input>
+            </div>
+            <br/>
+            <div class="stats">
+                <h1>Results</h1>
+                <div id="results" class="cats">
+                    <div style="margin-right: 10px;">
+                        <h3>Counts</h3>
+                        <span id="numCorrect"></span>
+                        <span id="numIncorrect"></span>
+                    </div>
+                    <div>
+                        <h3>My Stats</h3>
+                        <p id="successEval"></p>
+                        <p id="failEval"></p>
+                        <p id="accuracy"></p>
+                    </div>
+                    <div style="margin-left:10px;">
+                        <h3>Math.js Stats</h3>
+                        <p id="successGen"></p>
+                        <p id="failGen"></p>
+                        <p id="accuracyGen"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="results">
+            <div class="incorrect">
+                <h2>Intentionally Incorrect Expressions</h2>
+                <hr/>
+                <table class="incorrect-list">
+                    
+                </table>
+            </div>
+            <div class="correct">
+                <h2>Intentionally Correct Expressions</h2>
+                <hr/>
+                <table class="correct-list">
+                    
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        document.getElementById("size").addEventListener("keyup", function(event) {
+            event.preventDefault();
+            if (event.keyCode === 13) {
+                onTest();
+            }
+        });
+        document.getElementById("cases").addEventListener("keyup", function(event) {
+            event.preventDefault();
+            if (event.keyCode === 13) {
+                onTest();
+            }
+        });
+        
+        onTest = () => {
+            if( 
+                isNaN(Number(document.getElementById("size").value)) || 
+                Number(document.getElementById("size").value) <= 0 || 
+                isNaN(Number(document.getElementById("cases").value)) || 
+                Number(document.getElementById("cases").value) <= 0
+            ) {
+                alert("Please enter valid values for size and number of cases.");
+                return;
+            }
+            let incorr = [0, 0];
+            incorr = doIncorrect(incorr[0], incorr[1]);
+            let temp = doCorrect(incorr[0], incorr[1]);
+            incorr[0] = temp[0];
+            incorr[1] = temp[1];
+            
+            document.getElementById("failEval").innerHTML = "Incorrect Evaluations: " + incorr[0];
+            document.getElementById("successEval").innerHTML = "Correct Evaluations: " + (document.getElementById("cases").value - incorr[0]);
+            document.getElementById("accuracy").innerHTML = "Accuracy: " + (Math.round((incorr[0] / (Number(document.getElementById("cases").value)) - 1) * -10000) / 100) + "%";
+            document.getElementById("successGen").innerHTML = "Correct Evaluations (Math.js): " + incorr[1];
+            document.getElementById("failGen").innerHTML = "Incorrect Evaluations (Math.js): " + (document.getElementById("cases").value - incorr[1]);
+            document.getElementById("accuracyGen").innerHTML = "Accuracy (Math.js): " + (Math.round((incorr[1] / (Number(document.getElementById("cases").value))) * 10000) / 100) + "%";
+        }
+
+        doIncorrect = (numIncorrect, syntaxIncorr) => {
+            document.getElementsByClassName("incorrect-list")[0].innerHTML = "";
+            // Gets a randomly generated list of incorrect expressions
+            let incorrect = igenerate(document.getElementById("size").value, document.getElementById("cases").value);
+            let compare = [];
+            let table = `<thead><th>Generated Expression</th><th>Math.js Answer</th><th>My Answer</th></thead><tbody>`;
+            for(let i = 0; i < incorrect.mine.length; i++) {
+                let results = "";
+                let c = [];
+                try {
+                    let ans = math.evaluate(incorrect.math[i]);
+                    if(typeof ans === "function") {
+                        throw new EvalError;
+                    }
+                    ans = Math.round(ans * 1e5) / 1e5;
+                    results += `<td>${ans}</td>`;
+                    c.push(ans);
+                } catch (error) {
+                    results += `<td>Invalid Expression</td>`;
+                    c.push("error");
+                    syntaxIncorr++;
+                }
+                try {
+                    let ans = createEvaluation(incorrect.mine[i]);
+                    ans = evaluate(ans.express.join(""))();
+                    if(typeof ans === "function") {
+                        throw new EvalError;
+                    }
+                    ans = Math.round(ans * 1e5) / 1e5;
+                    results += `<td>${ans}</td>`;
+                    c.push(ans);
+                } catch (error) {
+                    results += `<td>Invalid Expression</td>`;
+                    c.push("error");
+                }
+                table += `<tr key=${i}><td>${incorrect.mine[i]}</td>${results}</tr>`;
+                compare.push(c);
+            }
+            table += "</tbody>";
+            document.getElementsByClassName("incorrect-list")[0].innerHTML = table;
+
+            // Compares the two lists and updates the results
+            document.getElementById("numIncorrect").innerHTML = `<p>Number of Incorrect Expressions Evaluated: ${incorrect.mine.length}</p>`;
+            for(let i = 0; i < compare.length; i++) {
+                if(compare[i][0] === compare[i][1]) {
+                    document.getElementsByClassName("incorrect-list")[0].getElementsByTagName("tr")[i + 1].style.backgroundColor = "#b8f4b8";
+                } else {
+                    numIncorrect++;
+                    document.getElementsByClassName("incorrect-list")[0].getElementsByTagName("tr")[i + 1].style.backgroundColor = "red";
+                }
+
+            }
+
+            return [numIncorrect, syntaxIncorr];
+        }
+
+        doCorrect = (numIncorrect, syntaxIncorr) => {
+            document.getElementsByClassName("correct-list")[0].innerHTML = "";
+            // Gets a randomly generated list of correct expressions
+            let correct = generate(document.getElementById("size").value, document.getElementById("cases").value);
+            let compare = [];
+            let table = `<thead><th>Generated Expression</th><th>Math.js Answer</th><th>My Answer</th></thead><tbody>`;
+            for(let i = 0; i < correct.mine.length; i++) {
+                let results = "";
+                let c = [];
+                try {
+                    let ans = math.evaluate(correct.math[i]);
+                    if(typeof ans === "function") {
+                        throw new EvalError;
+                    }
+                    ans = Math.round(ans * 1e5) / 1e5;
+                    results += `<td>${ans}</td>`;
+                    c.push(ans);
+                    syntaxIncorr++;
+                } catch (error) {
+                    results += `<td>Invalid Expression</td>`;
+                    c.push("error");
+                }
+                try {
+                    let ans = createEvaluation(correct.mine[i]);
+                    ans = evaluate(ans.express.join(""))();
+                    if(typeof ans === "function") {
+                        throw new EvalError;
+                    }
+                    ans = Math.round(ans * 1e5) / 1e5;
+                    results += `<td>${ans}</td>`;
+                    c.push(ans);
+                } catch (error) {
+                    results += `<td>Invalid Expression</td>`;
+                    c.push("error");
+                }
+                table += `<tr key=${i}><td class="expression">${correct.mine[i]}</td>${results}</tr>`;
+                compare.push(c);
+            }
+            table += "</tbody>";
+            document.getElementsByClassName("correct-list")[0].innerHTML = table;
+
+            document.getElementById("numCorrect").innerHTML = `<p>Number of Correct Expressions Evaluated: ${correct.mine.length}</p>`;
+            for(let i = 0; i < compare.length; i++) {
+                if(compare[i][0] === compare[i][1] || (isNaN(compare[i][0]) && isNaN(compare[i][1]))) {
+                    document.getElementsByClassName("correct-list")[0].getElementsByTagName("tr")[i + 1].style.backgroundColor = "#b8f4b8";
+                } else {
+                    numIncorrect++;
+                    document.getElementsByClassName("correct-list")[0].getElementsByTagName("tr")[i + 1].style.backgroundColor = "red";
+                }
+
+            }
+
+            return [numIncorrect, syntaxIncorr];
+        }
+    </script>
+    <noscript>
+        <h1>This site requires JavaScript to be enabled.</h1>
+    </noscript>
+</body>
+</html>
